@@ -1,38 +1,86 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useUser } from "../context/UserContext";
+import { ShoppingCart } from 'lucide-react';
 
 function CategoryPage() {
   const { categoryId } = useParams();
+  const { addToCart } = useUser();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // This would typically come from an API
-  const products = [
-    { id: 1, name: 'Product 1', price: 19.99, image: '/placeholder.svg', category: 'electronics' },
-    { id: 2, name: 'Product 2', price: 29.99, image: '/placeholder.svg', category: 'electronics' },
-    { id: 3, name: 'Product 3', price: 39.99, image: '/placeholder.svg', category: 'clothing' },
-    { id: 4, name: 'Product 4', price: 49.99, image: '/placeholder.svg', category: 'clothing' },
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      };
 
-  const filteredProducts = categoryId === 'all'
-    ? products
-    : products.filter(product => product.category === categoryId);
+      try {
+        const response = await fetch(`http://localhost/projects/api/product.php?category=${categoryId}`, requestOptions);
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (categoryId) {
+      fetchProducts();
+    }
+  }, [categoryId]);
+
+  const categoryNames = {
+    1: "Lit",
+    2: "Chaises",
+    3: "Luminaires",
+    4: "Linge de Maison",
+  };
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    alert(`${product.name} added to cart!`);
+  };
 
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-8">
-        {categoryId === 'all' ? 'All Products' : `${categoryId.charAt(0).toUpperCase() + categoryId.slice(1)} Products`}
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="section-title">
+        {categoryNames[categoryId] || `Category ${categoryId}`}
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {filteredProducts.map((product) => (
-          <div key={product.id} className="border p-4 rounded">
-            <img src={product.image} alt={product.name} className="w-full h-48 object-cover mb-4" />
-            <h3 className="font-bold">{product.name}</h3>
-            <p className="text-gray-600">${product.price.toFixed(2)}</p>
-            <Link to={`/product/${product.id}`} className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded">
-              View Product
-            </Link>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <p className="text-center text-gray-500">Loading products...</p>
+      ) : products.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <div key={product.id} className="card relative">
+              <Link
+                to={`/product/${product.id}`}
+                className="block hover:shadow-lg transition duration-300"
+              >
+                <img src={product.image_url || "/placeholder.svg"} alt={product.name} className="w-full product-card-image rounded-t-lg object-contain" />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+                  <p className="text-primary text-lg mb-4">${parseFloat(product.price).toFixed(2)}</p>
+                </div>
+              </Link>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleAddToCart(product);
+                }}
+                className="btn btn-primary absolute bottom-4 right-4"
+              >
+                <ShoppingCart size={20} />
+              </button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-gray-500">No products found in this category.</p>
+      )}
     </div>
   );
 }

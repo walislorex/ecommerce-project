@@ -14,3 +14,174 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
+
+/* :root {
+  --primary: #4a5568;
+  --primary-dark: #2d3748;
+  --secondary: #ed8936;
+  --text: #1a202c;
+  --background: #f7fafc;
+  --white: #ffffff;
+  --gray-100: #f7fafc;
+  --gray-200: #edf2f7;
+  --gray-300: #e2e8f0;
+  --gray-400: #cbd5e0;
+  --gray-500: #a0aec0;
+  --warm-gray: #f0ebe5;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--white);
+}
+
+.btn-secondary:hover {
+  background-color: #c0392b;
+}
+
+.bg-warm-gray {
+  background-color: var(--warm-gray);
+}
+ */
+
+ @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #3A5A40;
+  --primary-light: #588157;
+  --secondary: #DAD7CD;
+  --accent: #A3B18A;
+  --text: #344E41;
+  --background: #FAFAF9;
+  --white: #FFFFFF;
+  --gray-100: #F1F1F1;
+  --gray-200: #E0E0E0;
+  --gray-300: #CFCFCF;
+  --gray-400: #B8B8B8;
+  --gray-500: #A0A0A0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-light);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background-color: var(--accent);
+  color: var(--white);
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-image {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.product-card-image {
+  height: 300px;
+  object-fit: contain;
+}
+
